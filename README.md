@@ -57,6 +57,24 @@ In `students.js`:
 
 ## Week 3 Assignments
 
-- Make the student list dynamic
+### Make the student list dynamic
+
+Instead of getting the students from a hard-coded list, let's fetch them from a remote server.
+
+Start the "remote" server by invoking `npm run server:json` from the command line, PowerShell, git bash or whatever you're using.
+
+Two parts where we are dynamically fetching data:
+
+1. When `students.html` loads, we should load the list of all students and render it to the page
+2. When someone clicks on one of the students in the list, fetch **just that student** from the server
+
+Remote server url: http://localhost:8000/students for all students, http://localhost:8000/students/{id} for an individual student (e.g., http://localhost:8000/students/5 for the student with ID 5).
+
+Fork the `course-manager` repo into `course-manager-[team name]-week3`. Create a branch **from** the week-3-starter branch. Call the branch anything you want, but do work on that branch.
+
+You can use regular, browser-standard `fetch`, or you can include the Axios library if you'd like. There's a good example of how to include Axios in a page [here](https://github.com/EICPCohort7/javascript-examples/blob/main/demos/async/fetch-vs-axios.html).
+
+Also feel free to use either Promises or `async/await` as you see fit.
+
 - Relate the student country and the student provinces to each other
 - Be able to add a student
