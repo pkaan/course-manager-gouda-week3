@@ -1,5 +1,4 @@
-import { students } from './data/all-data.js';
-
+/* eslint-disable no-undef */
 let leftSide = document.getElementById('left-side');
 let leftSideList = document.createElement('ul');
 
@@ -9,27 +8,48 @@ leftSideList.classList.add('list-unstyled');
 // Direct style assignment
 leftSideList.style.cursor = 'pointer';
 
-for (let student of students) {
-  // console.log(student.firstName + ' ' + student.lastName);
-  // console.log(`${student.firstName} ${student.lastName}`);
-  leftSideList.insertAdjacentHTML(
-    'beforeend',
-    `<li id="${student.id}">${student.firstName} ${student.lastName}</li>`
-  );
+// try catch
+try {
+  let students = await axios.get('http://localhost:8000/students');
+  renderStudents(students.data);
+} catch (error) {
+  if (error.response) {
+    console.error('Axios: bat HTTP response ', error.response.status);
+  } else {
+    console.error('Axios: bad network error ', error);
+  }
+}
+
+function renderStudents(students) {
+  for (let student of students) {
+    // console.log(student.firstName + ' ' + student.lastName);
+    // console.log(`${student.firstName} ${student.lastName}`);
+    leftSideList.insertAdjacentHTML(
+      'beforeend',
+      `<li id="${student.id}">${student.firstName} ${student.lastName}</li>`
+    );
+  }
 }
 
 // Event delegation!
-leftSideList.addEventListener('click', (event) => {
+leftSideList.addEventListener('click', async (event) => {
   let studentId = event.target.id;
-  let student = students.find((s) => s.id === Number(studentId));
-  // let student = students.find((s) => s.id == studentId);
-  // console.log('You clicked on:', student);
+  let student;
+  try {
+    student = await axios.get(`http://localhost:8000/students/${studentId}`);
+  } catch (error) {
+    if (error.response) {
+      console.error('Axios: bat HTTP response ', error.response.status);
+    } else {
+      console.error('Axios: bad network error ', error);
+    }
+  }
 
   let rightSide = document.getElementById('right-side');
   let studentDetails = document.createElement('div');
   studentDetails.insertAdjacentHTML(
     'beforeend',
-    `<p>${student.firstName} ${student.lastName} lives in ${student.city}, ${student.province}`
+    `<p>${student.data.firstName} ${student.data.lastName} lives in ${student.data.city}, ${student.data.province}`
   );
   rightSide.replaceChildren(studentDetails);
 });
