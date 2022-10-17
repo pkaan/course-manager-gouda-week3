@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint public/js/**/*.js",
+    "server:json": "json-server --watch --port 8000 public/data/all-data.json",
     "server:root": "http-server public -p 3000 --cors -c-1"
   },
   "keywords": [],
@@ -35,5 +36,8 @@
     "sinon": "^14.0.1",
     "style-loader": "^3.3.1",
     "webpack": "^5.74.0"
+  },
+  "dependencies": {
+    "axios": "^1.1.3"
   }
 }
