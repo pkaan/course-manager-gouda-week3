@@ -3,6 +3,7 @@ import { students } from './data/all-data.js';
 let leftSide = document.getElementById('left-side');
 let leftSideList = document.createElement('ul');
 leftSideList.classList.add('list-unstyled');
+leftSideList.style.cursor = 'pointer';
 
 for (let student of students) {
   // console.log(student.firstName + ' ' + student.lastName);
